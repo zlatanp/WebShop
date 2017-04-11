@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="js/notify.min.js"></script>
+
+
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="edit.css">
+<style type="text/css">
+body {
+	padding-top: 50px;
+    background-color: #e6e6e6;
+}
+</style>
+
+
+<title>WebShop Dodaj Proizvod</title>
+
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+
+<script>
+	function onload(){
+		var x = document.cookie;
+		var ulogovani = x.split("=");
+		var imeulogovanog = ulogovani[1];
+		var ime = document.getElementById("ulogovani");
+// proverava jel imam kolacic
+
+		if(x.length===0){ 				//ako nema kukija nista
+			$('.nemakuki').show();
+			$('.imakukiadmin').hide();
+			$('.imakuki').hide();
+		}else if(imeulogovanog==="admin"){ 			//ako ima kukija i admin je
+			$('.imakuki').show();
+			$('.imakukiadmin').show();
+			$('.imakukikorisnik').hide();
+			$('.nemakuki').hide();
+			ime.innerHTML = imeulogovanog;
+			
+			}else{						//ako ima kukija a nije admin
+				$('.imakuki').show();
+				$('.imakukiadmin').hide();
+				$('.imakukikorisnik').show();
+				$('.nemakuki').hide();
+				ime.innerHTML = imeulogovanog;
+			}
+		}
+	
+</script>
+</head>
+<body onload="onload()">
+	<!--  ********************************* NAVIGACIJA ********************************* -->
+
+	<nav id="myNavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span><!-- crtica -->
+					<span class="icon-bar"></span> <!-- crtica -->
+					<span class="icon-bar"></span><!-- crtica -->
+				</button>
+				<a class="navbar-brand" href="home.html"><img height="27" src="img/webshop2.png" /></a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="nav navbar-nav">
+					<li><a href="home.html">Početna</a></li>
+					<li><a href="shops.html">Prodavnice</a></li>
+					<li><a href="deliverers.html">Dostavljači</a></li>
+					<li><a href="#">Akcije</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li style = "display: none" class="nemakuki"><a href="register.html"><span class="glyphicon glyphicon-user"></span> Registruj Se</a></li>
+					<li style = "display: none" class="nemakuki"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Prijavi Se</a></li>
+					<li style = "display: none" class="imakuki" ><a href="userProfile.html"><span class="glyphicon glyphicon glyphicon-user" id="ulogovani"></span></a></li>
+					<li style = "display: none" class="imakukiadmin"><a href="kontrolPanel.html"><span class="glyphicon glyphicon-list-alt"></span> Kontrol panel</a></li>
+					<li style = "display: none" class="imakuki"><a href="home.html" onclick="izlogujSe()"><span class="glyphicon glyphicon glyphicon glyphicon-log-out"></span> Izloguj se</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<script>
+function izlogujSe(){
+	document.cookie = "username" + '=; Max-Age=0';
+}
+
+
+
+</script>
+	<!-- ********************************* SLAJD ********************************* -->
+
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<img src="img/webshopslajd2.png" alt="PC">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Kupovina od vaše kuće.</h4>
+				</div>
+			</div>
+
+			<div class="item">
+				<img src="img/webshopslajd3.png" alt="Enter">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Jednostavno i efikasno poručivanje.</h4>
+				</div>
+			</div>
+
+			<div class="item">
+				<img src="img/webshopslajd1.png" alt="Korpa">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Isporuka na kućnu adresu</h4>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" role="button"
+			data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"
+			aria-hidden="true"></span> <span class="sr-only">Previous</span>
+		</a> <a class="right carousel-control" href="#myCarousel" role="button"
+			data-slide="next"> <span
+			class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+
+	<!-- ********************************* SEARCH ********************************* -->
+	<!-- ********************************* LEVO ********************************* -->
+	
+	<div class="registerForma center-block">
+<div >
+<div class="form-group row">
+  <label></label>
+  <div class="col-xs-10">
+    <input type="hidden" id="example-text-input">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="example-text-input" class="col-xs-2 col-form-label">Šifra proizvoda:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasausername" type="text" placeholder="šifra proizvoda" id="sifra" name="sifra">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-search-input" class="col-xs-2 col-form-label">Naziv proizvoda:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasalozinka" type="text" placeholder="naziv" id="naziv" name="naziv">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-email-input" class="col-xs-2 col-form-label">Boja:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasaime" type="text" placeholder="boja" id="boja" name="boja">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-url-input" class="col-xs-2 col-form-label">Dimenzije:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasaprezime" type="text" placeholder="dimenzije" id="dimenzije" name="dimenzije">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-tel-input" class="col-xs-2 col-form-label">Tezina:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasatelefon" type="text" placeholder="tezina" id="tezina" name="tezina">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-password-input" class="col-xs-2 col-form-label">Zemlja proizvodnje:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasaemail" type="text" placeholder="zemlja" id="zemlja" name="zemlja">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-number-input" class="col-xs-2 col-form-label">Naziv proizvođača:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasaadresa" type="text" placeholder="proizvodjac" id="proizvodjac" name="proizvodjac">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Jedinična cena:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasadrzava" type="text" placeholder="cena" id="cena" name="cena">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Kategorija:</label>
+  <div class="col-xs-10">
+    <select name="kategorija" id="kategorija"  name="imalPodkategorije" class="Kategorija" >
+	</select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Slika:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasadrzava" type="text" placeholder="slika" id="slika" name="slika">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Video:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasadrzava" type="text" placeholder="video" id="video" name="video">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Ocena:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasadrzava" type="text" placeholder="ocena" id="ocena" name="ocena">
+  </div>
+</div>
+<!-- <div class="form-group row"> -->
+<!--   <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Recenzije:</label> -->
+<!--   <div class="col-xs-10"> -->
+<!--     <input class="form-control klasadrzava" type="text" placeholder="recenzije" id="recenzije" name="recenzije"> -->
+<!--   </div> -->
+<!-- </div> -->
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Količina u magacinu:</label>
+  <div class="col-xs-10">
+    <input class="form-control klasadrzava" type="text" placeholder="kolicina" id="kolicina" name="kolicina">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-xs-2 col-form-label">Dostupno u prodavnicama:</label>
+  <div class="col-xs-10">
+    <form  class="prodavnice" >
+  	
+	</form>
+  </div>
+</div>
+<div class="form-group row">
+  <label></label>
+  <div class="col-xs-10">
+    <input type="hidden" id="example-text-input">
+  </div>
+</div>
+<!--  provera praznih polja JS -->
+<script>
+$(document).ready(function(){
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavnice/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++)
+        	{
+        	  var item = data[i];
+        	  	$('.prodavnice').append('<input type="checkbox" class="remember" value="'+item.naziv+'">'+item.naziv+'<br></input>');
+        	}
+        }
+	});
+	
+	
+}); 
+
+$(document).ready(function(){
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/kategorije/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	$('.Kategorija').append('<option id="kategorija" value="">Izaberi</option>');
+        	for(var i =0;i < data.length;i++)
+        	{
+        		var item = data[i];
+        		//alert(item.podkategorija==null);
+        		if(item.podkategorija==null){
+        	  	$('.Kategorija').append('<option value="'+item.naziv+'">'+item.naziv+'</option>');
+        		}else{
+        			$('.Kategorija').append('<option value="'+item.naziv+'">'+item.naziv+'</option>');
+        			var podz = item.podkategorija;
+        		for(var z =0;z<podz.length;z++){
+        			
+        			$('.Kategorija').append('<option value="'+podz[z].naziv+'">'+podz[z].naziv+'</option>');
+        		}	
+        		}
+        	}
+        }
+	});
+});
+
+function proveraPolja() {
+	var idedalje = true;
+    var sifra = document.getElementById("sifra").value;
+    
+    var naziv = document.getElementById("naziv").value;
+    var boja = document.getElementById("boja").value;
+    var dimenzije = document.getElementById("dimenzije").value;
+    var tezina = document.getElementById("tezina").value;
+    var nazivVeliki = naziv.toUpperCase();
+    var zemlja = document.getElementById("zemlja").value; 
+    var proizvodjac = document.getElementById("proizvodjac").value;
+    var cena = document.getElementById("cena").value;
+    var slika = document.getElementById("slika").value;
+    var video = document.getElementById("video").value;
+    var ocena = document.getElementById("ocena").value;
+   // var recenzije = document.getElementById("recenzije").value;
+    
+   var kolicina = document.getElementById("kolicina").value;
+    var i = document.getElementsByClassName('Kategorija');
+	var kategorija = i[0].value;
+	
+    var item = new Object();
+	item.sifra = sifra;
+	item.naziv = naziv;
+	item.boja = boja;
+	item.dimenzije = dimenzije;
+	item.tezina = tezina;
+	item.zemljaproizvodnje = zemlja;
+	item.proizvodjac = proizvodjac;
+	item.jedinicnacena = cena;
+	item.kategorija = kategorija
+	item.slika = slika;
+	item.video = video;
+	item.ocena = ocena;
+	item.recenzije = null;
+	item.magacin = kolicina;
+	var prodavnice=[];
+	var cekboksovi = document.getElementsByClassName('remember');
+	for(var i =0;i<cekboksovi.length;i++){
+		if(cekboksovi[i].checked)
+			prodavnice.push(cekboksovi[i].value);
+	}
+
+	
+	var prodavnicee = new Array();
+	for(var i=0;i<prodavnice.length;i++){
+		prodavnicee[i] = prodavnice[i];
+		
+	}
+	item.prodavnica = prodavnicee;
+	var jsonArray = JSON.parse(JSON.stringify(item));
+    
+
+	
+
+	
+    if(sifra.length===0){
+    	$.notify("Niste uneli sifru!");
+    	idedalje = false;	
+    }
+    
+    if(naziv.length===0){
+    	$.notify("Niste uneli naziv!");
+    	idedalje = false;	
+    }
+    
+    if(boja.length===0){
+    	$.notify("Niste uneli boju!");
+    	idedalje = false;	
+    }
+    
+    if(dimenzije.length===0){
+    	$.notify("Niste uneli dimenzije!");
+    	idedalje = false;	
+    }
+    
+    if(tezina.length===0){
+    	$.notify("Niste uneli tezinu!");
+    	idedalje = false;	
+    }
+    
+    if(zemlja.length===0){
+    	$.notify("Niste uneli zemlju!");
+    	idedalje = false;	
+    }
+    
+    if(cena.length===0){
+    	$.notify("Niste uneli cenau!");
+    	idedalje = false;	
+    }
+    
+    if(proizvodjac.length===0){
+    	$.notify("Niste uneli proizvodjaca!");
+    	idedalje = false;	
+    }
+    
+    if(kategorija.length===0){
+    	$.notify("Niste uneli kategoriju!");
+    	idedalje = false;	
+    }
+    
+    if(slika.length===0){
+    	$.notify("Niste uneli sliku!");
+    	idedalje = false;	
+    }
+    
+    if(video.length===0){
+    	$.notify("Niste uneli video!");
+    	idedalje = false;	
+    }
+    
+    if(ocena.length===0){
+    	$.notify("Niste uneli ocenu!");
+    	idedalje = false;	
+    }
+    
+    if(kolicina.length===0){
+    	$.notify("Niste uneli kolicinu!");
+    	idedalje = false;	
+    }
+    
+    if(naziv[0]!=nazivVeliki[0]){
+    	$.notify("Prvo slovo naziva mora biti veliko!", "warn");
+        	idedalje = false;	
+      }
+    
+    
+    if(idedalje){
+    	$.ajax({
+			  type: 'POST',
+			  url: 'rest/item/add',
+			  data: JSON.stringify(jsonArray),
+			  complete: function(data){
+				  alert("Uspesno ste uneli nov proizvod!");
+				  window.location.href="kontrolPanel.html";
+			  },
+			  error: function(e) {
+			    console.log(e);
+			  },
+			  dataType: "json",
+			  contentType: "application/json"
+			});
+	}
+ 
+    
+    return idedalje;
+}
+
+function idiNaPocetnu(){
+	window.location.href="home.html";
+}
+</script>
+
+<div class="dugmad">
+<input type="button" onclick="return proveraPolja()" value="Unesi proizvod" id="dugme">
+<input type="button" value="Odustani" onclick="idiNaPocetnu()" id="dugme">
+  </div>
+</div>
+</div>
+<br>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 	<form id="data" method="post" enctype="multipart/form-data">
+    <input name="image" type="file" />
+    <button>Submit</button>
+	</form> -->
+ 	<script>
+	  
+/* 	$("form#data").submit(function(){
+
+ 	    var formData = new FormData($(this)[0]);
+
+	    $.ajax({
+ 	        url: 'rest/file/upload',
+ 	        type: 'POST',
+	        data: formData,
+ 	        async: false,
+ 	        success: function (data) {
+	            alert(data)
+	        },
+ 	        cache: false,
+ 	        contentType: false,
+ 	        processData: false
+	    });
+
+ 	    return false;
+ 	});
+ 	*/ 
+	
+	</script>
+
+</body>
+</html>

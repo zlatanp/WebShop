@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="js/notify.min.js"></script>
+
+
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="edit.css">
+<style type="text/css">
+body {
+	padding-top: 50px;
+    background-color: #e6e6e6;
+}
+</style>
+
+
+<title>WebShop Pocetna - Prodavac</title>
+
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+
+<script>
+	function onload(){
+		var x = document.cookie;
+		var ulogovani = x.split("=");
+		var imeulogovanog = ulogovani[1];
+		var ime = document.getElementById("ulogovani");
+// proverava jel imam kolacic
+
+		if(x.length===0){ 				//ako nema kukija nista
+			$('.nemakuki').show();
+			$('.imakukiadmin').hide();
+			$('.imakuki').hide();
+		}else if(imeulogovanog==="admin"){ 			//ako ima kukija i admin je
+			$('.imakuki').show();
+			$('.imakukiadmin').show();
+			$('.imakukikorisnik').hide();
+			$('.nemakuki').hide();
+			ime.innerHTML = imeulogovanog;
+			
+			}else{						//ako ima kukija a nije admin
+				$('.imakuki').show();
+				$('.imakukiadmin').hide();
+				$('.imakukikorisnik').show();
+				$('.nemakuki').hide();
+				ime.innerHTML = imeulogovanog;
+			}
+		}
+	
+</script>
+</head>
+<body onload="onload()">
+	<!--  ********************************* NAVIGACIJA ********************************* -->
+
+	<nav id="myNavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span><!-- crtica -->
+					<span class="icon-bar"></span> <!-- crtica -->
+					<span class="icon-bar"></span><!-- crtica -->
+				</button>
+				<a class="navbar-brand" href="seller.html"><img height="27" src="img/webshop2.png" /></a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="nav navbar-nav">
+					<li><a href="seller.html">Početna</a></li>
+					<li><a onclick = "prikaziProdavnice()">Prodavnice</a></li>
+					<li><a href="akcije.html">Akcije</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li style = "display: none" class="nemakuki"><a href="register.html"><span class="glyphicon glyphicon-user"></span> Registruj Se</a></li>
+					<li style = "display: none" class="nemakuki"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Prijavi Se</a></li>
+					<li style = "display: none" class="imakuki" ><a ><span class="glyphicon glyphicon glyphicon-user" id="ulogovani"></span></a></li>
+					<li style = "display: none" class="imakuki"><a href="addItems.html"><span class="glyphicon glyphicon-list-alt"></span> Dodaj Proizvod</a></li>
+					<li style = "display: none" class="imakuki"><a href="home.html" onclick="izlogujSe()"><span class="glyphicon glyphicon glyphicon glyphicon-log-out"></span> Izloguj se</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<script>
+function izlogujSe(){
+	document.cookie = "username" + '=; Max-Age=0';
+}
+
+
+
+</script>
+	<!-- ********************************* SLAJD ********************************* -->
+
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<img src="img/webshopslajd2.png" alt="PC">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Kupovina od vaše kuće.</h4>
+				</div>
+			</div>
+
+			<div class="item">
+				<img src="img/webshopslajd3.png" alt="Enter">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Jednostavno i efikasno poručivanje.</h4>
+				</div>
+			</div>
+
+			<div class="item">
+				<img src="img/webshopslajd1.png" alt="Korpa">
+				<div class="carousel-caption">
+					<h4 class="slajdTekst">Isporuka na kućnu adresu</h4>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" role="button"
+			data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"
+			aria-hidden="true"></span> <span class="sr-only">Previous</span>
+		</a> <a class="right carousel-control" href="#myCarousel" role="button"
+			data-slide="next"> <span
+			class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+
+	<!-- ********************************* SEARCH ********************************* -->
+	<div class="container">
+		<div class="row">
+			<div class=".col-xs-6 .col-sm-8 .col-lg-10 pull-left sidebar">
+				<div class="navbar-form navbar-left">
+					<div class="form-group">
+						<div class="form-group" style="color: white" id="kategorije">
+						<h4>Kategorije:<br></h4>
+						<br>
+					</div>
+					</div>
+					</div>
+			</div>
+<script>
+$(document).ready(function(){
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/kategorije/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++)
+        	{
+        	  var item = data[i];
+        	  	$('#kategorije').append('<h5 style="cursor: pointer;"><a onclick="daj(\''+item.naziv+'\')">'+item.naziv+'</a></h5>');
+        	  	var podniz = item.podkategorija;
+        	  	if(podniz!=null)
+        	  		for(var z = 0; z<podniz.length;z++){
+        	  	//alert(podniz[0].toString()); //ime
+        	  	//alert(podniz[1].toString()); //opis
+        	  		var podkategorija = podniz[z].naziv;
+        	  	//alert("ime podkategorije je : "+podkategorija);
+        	  		$('#kategorije').append('<h6 id="link" style="padding-left:2em; cursor: pointer;"><a onclick="daj(\''+podkategorija+'\')" >'+podkategorija+'</a></h6>');
+        	  		}
+        	  	
+				$('#kategorije').append('<br>');
+        	}
+        }
+	});
+});
+
+function prikaziProdavnice(){
+	var x = document.cookie;
+	var ulogovani = x.split("=");
+	var usernameProdavca = ulogovani[1];
+	var prodavniceMoje = [];
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavci/daj/'+usernameProdavca,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++){
+        		prodavniceMoje.push(data[i]);
+        	}
+        }
+	});
+	
+	
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavnice/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++)
+        	{
+        	  var item = data[i];
+        	  var $itemKontejner = $('<div class="itemKontejner-'+i+'" style="background-color: lightblue; border-radius: 25px;border: 2px solid #4d4d4d; padding: 20px; width: 100%; margin: 0 auto;">');
+              $itemKontejner.append('<div class="shopsPolja" id="naziv-'+i+'">Naziv:</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px; font-size: 24px;" type="text" readonly value="'+item.naziv+'">')
+              .append('<div class="shopsPolja"  id="sifra-'+i+'">'+"Sifra: "+'</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.sifra+'">')
+              .append('<div class="shopsPolja" id="drzava-'+i+'">'+"Drzava: " + '</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.drzava+'">')
+              .append('<div class="shopsPolja" id="adresa-'+i+'">'+"Adresa :" +'</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;"type="text" readonly value="'+item.adresa+'">')
+              .append('<div class="shopsPolja" id="telefon-'+i+'">'+"Telefon: " + '</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.telefon+'">')
+              .append('<div class="shopsPolja" id="email-'+i+'">'+"Email: " + '</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.email+'">')
+              .append('<div class="shopsPolja" id="ocena-'+i+'">'+"Ocena: " + '</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.ocena+'">')
+              .append('<div class="shopsPolja" id="recenzije-'+i+'">'+"Recenzije: " + '</div>')
+              .append('<input class="'+item.sifra+'" style="width:230px;" type="text" readonly value="'+item.recenzije+'">')
+              .append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+             	
+              for(var j=0;j<prodavniceMoje.length;j++){
+            	  if(item.naziv===prodavniceMoje[j])
+              
+					$itemKontejner.append('<button style="background-color: #ffcc00; border-radius: 25px;" id="'+item.sifra+'dugme" onclick="return izmeniProdavnicu(\''+item.sifra+'\')" >Izmeni</button>');
+					$itemKontejner.append('<button style="background-color: #33cc33; border-radius: 25px;" onclick="sacuvajIzmenuu(\''+item.sifra+'\')" id="'+item.sifra+'" hidden>Sacuvaj izmene</button>');
+	          }
+              $('#sredina').append($itemKontejner);
+              $('#sredina').append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+        	}
+        }
+	});
+}
+
+function izmeniProdavnicu(sifraProdavnice){
+	var i = document.getElementsByClassName(sifraProdavnice);
+	i[2].readOnly = false;
+	i[3].readOnly = false;
+	i[4].readOnly = false;
+	i[5].readOnly = false;
+	i[6].readOnly = false;
+	i[7].readOnly = false;
+	$('#'+sifraProdavnice).toggle();
+	/*$('#'+sifraProdavnice+'dugme').text('Odustani');
+	if(!$('#'+sifraProdavnice).is(":visible")){
+		i[2].readOnly = true;
+		i[3].readOnly = true;
+		i[4].readOnly = true;
+		i[5].readOnly = true;
+		i[6].readOnly = true;
+		i[7].readOnly = true;
+		i[8].readOnly = true;
+		$('#'+sifraProdavnice+'dugme').text('Izmeni');
+		$.ajax({ 
+	        type: 'GET',
+	        url: 'rest/prodavnice/odredjena/{'+sifraProdavnice+'}',
+	        dataType: 'json',
+	        success: function(data){
+	        	console.log(data);
+	        	i[2].value = data.drzava;
+	        	i[3].value = data.adresa;
+	        	i[4].value = data.telefon;
+	        	i[5].value = data.email;
+	        	i[6].value = data.ocena;
+	        	i[7].value = data.recenzije;
+	        	i[8].value = data.odgovorni;
+	        	
+	        }
+		});
+}*/
+return false;
+
+}
+
+function sacuvajIzmenuu(sifraProdavnice){
+ 	var i = document.getElementsByClassName(sifraProdavnice);
+ 	var novoIme = i[0].value;
+ 	var staraSifra = i[1].value;
+	var novaDrzava = i[2].value;
+	var novaAdresa = i[3].value;
+	var noviTelefon = i[4].value;
+	var noviEmail = i[5].value;
+	var novaOcena = i[6].value;
+	//var novaRecenzija ="";
+	var noviProdavac = "";
+	$.ajax({
+		  type: 'POST',
+		  url: 'rest/prodavnice/izmeniSeller/'+sifraProdavnice,
+		  data: JSON.stringify({"sifra":""+staraSifra+"","naziv":""+novoIme+"","adresa":""+novaAdresa+"","drzava":""+novaDrzava+"","telefon":""+noviTelefon+"","email":""+noviEmail+"","ocena":""+novaOcena+"","recenzije":[""],"odgovorni":""+noviProdavac+""}),
+		  success: function(data){
+			  alert("Uspesno ste izmenili prodavnicu sa šifrom: "+sifraProdavnice);
+			  location.reload();
+		  },
+		  error: function(e) {
+		    console.log(e);
+		    alert("Uspesno ste izmenili prodavnicu sa šifrom: "+sifraProdavnice);
+		  },
+		  dataType: "json",
+		  contentType: "application/json"
+		});
+}
+
+function daj(imeKategorije){
+	$('#sredina').html("");
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/item/'+imeKategorije,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	$('#sredina').html("<p>Kategorije -> "+imeKategorije+"</p><br>");
+        	if(data.length===0){
+        		var $itemKontejner = $('<div class="itemKontejner-'+i+'" style="width:500px; background-color:#ffffe6;border: 2px solid #4d4d4d; padding: 20px; margin: 0 auto;">');
+        		$itemKontejner.append('<div <h4>Nema proizvoda!</h4></div>');
+        		 $('#sredina').append($itemKontejner);
+                 $('#sredina').append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+        	}else{
+        	for(var i =0;i < data.length;i++)
+        	{
+        	  var item = data[i];
+        	  var $itemKontejner = $('<div class="itemKontejner-'+i+'" style="width:400px; background-color:#ffffe6;border: 2px solid #4d4d4d; padding: 20px; margin: 0 auto;">');
+        	   $itemKontejner.append('<table><tr><td><img src="'+item.slika+'" eight="100" width="100"></td></tr>')
+        	  .append('<tr><td><h5>Naziv Proizvoda: '+item.naziv+'</h5></td></tr>')
+        	  .append('<tr><td><h5>Proizvodjac: '+item.proizvodjac+'</h5></td></tr>')
+        	  .append('<tr><td><h5>Jedinicna cena: <h4 style="color:green">'+item.jedinicnacena+' din.</h4></h5></td></tr>')
+			  .append('<tr><td><a style="cursor: pointer;" onclick="vratijednog(\''+item.sifra+'\')"">Opširnije</a></td></tr></table></div>');     	  
+        	  $('#sredina').append($itemKontejner);
+              $('#sredina').append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+        	}
+        }
+        }
+	});
+}
+//opsirnijeeeeeeeeeeee
+function vratijednog(sifra){
+	var x = document.cookie;
+	var ulogovani = x.split("=");
+	var usernameProdavca = ulogovani[1];
+	var prodavniceMoje = [];
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavci/daj/'+usernameProdavca,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++){
+        		prodavniceMoje.push(data[i]);
+        	}
+        }
+	});
+	
+	$('#sredina').html("");
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/item/vratijednog/'+sifra,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	var ime = [];
+        	$('#sredina').html("<p>Proizvod -> "+data.naziv+"</p><br>");
+        	
+        	var $itemKontejner = $('<table style="width:100%;background-color:#ffffe6;"><tr><td><img src="'+data.slika+'" weight="350" width="250"><br></td></tr>')
+        	.append('<tr><td><h5 style="width:150px">Naziv Proizvoda: </h5></td><td><input  style="width=250px" class="naziv" type="text" readonly value="'+data.naziv+'"></td></tr>')
+        	.append('<tr><td><h5 style="width:100px">Sifra: </h5></td><td><input  style="width=250px" class="sifra" type="text" readonly value="'+data.sifra+'"></td></tr>') 
+      	  	.append('<tr><td><h5 style="width:100px">Boja: </h5></td><td><input  style="width=250px" class="boja" type="text" readonly value="'+data.boja+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Dimenzije: </h5></td><td><input  style="width=250px" class="dimenzije" type="text" readonly value="'+data.dimenzije+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Tezina: </h5></td><td><input  style="width=250px" class="tezina" type="text" readonly value="'+data.tezina+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Jedinicna cena: </h5></td><td><input  style="width=250px;" class="jedinicnacena" type="text" readonly value="'+data.jedinicnacena+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Kategorija: </h5></td><td><input  style="width=250px" class="kategorija" type="text" readonly value="'+data.kategorija+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Ocena: </h5></td><td><input  style="width=250px" class="ocena" type="text" readonly value="'+data.ocena+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Poizvodjac: </h5></td><td><input  style="width=250px" class="proizvodjac" type="text" readonly value="'+data.proizvodjac+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Tezina: </h5></td><td><input  style="width=250px" class="tezina" type="text" readonly value="'+data.tezina+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Zemlja proizvodnje: </h5></td><td><input  style="width=250px" class="zemljaproizvodnje" type="text" readonly value="'+data.zemljaproizvodnje+'"></td></tr>')
+        	.append('<tr><td><h5 style="width:100px">Kolicina u magacinu: </h5></td><td><input  style="width=250px" class="magacin" type="text" readonly value="'+data.magacin+'"></td></tr>')
+      	  	.append('<tr><td><a style="width:100px">Recenzije</a></td>/tr>')
+        	.append('<tr><td><h5 style="width:100px">Dostupno u prodavnicama: </h5></td></tr>');
+        	for(var z=0;z<data.prodavnica.length;z++){
+        		$itemKontejner.append('<tr><td><input  style="width=250px" class="prodavnica" type="text" readonly value="'+data.prodavnica[z]+'"></td></tr>');
+          	  	
+        	}
+        	$itemKontejner.append('</table>');
+        	
+      	  	$('#sredina').append($itemKontejner);
+            $('#sredina').append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+             
+            for(var j=0;j<prodavniceMoje.length;j++){
+            	for(var z=0;z<data.prodavnica.length;z++){
+          	 		 if(data.prodavnica[z]===prodavniceMoje[j]){
+						$('#sredina').append('<button style="background-color: #ffcc00; border-radius: 25px;" id="'+data.sifra+'dugme" onclick="return aa(\''+data.sifra+'\')">Izmeni</button>');
+						return;	
+          	  			}
+        		}
+       	 	}
+        }
+	});
+}
+//izmenaaaaaaaaaa
+function aa(sifra){
+	var x = document.cookie;
+	var ulogovani = x.split("=");
+	var usernameProdavca = ulogovani[1];
+	var prodavniceMoje = [];
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavci/daj/'+usernameProdavca,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	for(var i =0;i < data.length;i++){
+        		prodavniceMoje.push(data[i]);
+        	}
+        }
+	});
+	
+	$('#sredina').html("");
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/item/vratijednog/'+sifra,
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	var ime = [];
+        	$('#sredina').html("<p>Proizvod -> "+data.naziv+"</p><br>");
+        	
+        	var $itemKontejner = $('<table style="width:100%;background-color:#ffffe6;"><tr><td><h5 style="width:150px">Naziv Proizvoda: </h5></td><td><input readonly style="width=250px" class="naziv" type="text" value="'+data.naziv+'"></td></tr>')
+        	.append('<tr><td><h5 style="width:100px">Sifra: </h5></td><td><input  style="width=250px" class="sifra" type="text" readonly value="'+data.sifra+'"></td></tr>') 
+      	  	.append('<tr><td><h5 style="width:100px">Boja: </h5></td><td><input  style="width=250px" class="boja" type="text"  value="'+data.boja+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Dimenzije: </h5></td><td><input  style="width=250px" class="dimenzije" type="text"  value="'+data.dimenzije+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Tezina: </h5></td><td><input  style="width=250px" class="tezina" type="text"  value="'+data.tezina+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Jedinicna cena: </h5></td><td><input  style="width=250px;" class="jedinicnacena" type="text"  value="'+data.jedinicnacena+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Kategorija: </h5></td><td><select  name="imalPodkategorije" class="kategorija" >	</select></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Ocena: </h5></td><td><input  style="width=250px" class="ocena" type="text"  value="'+data.ocena+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Poizvodjac: </h5></td><td><input  style="width=250px" class="proizvodjac" type="text"  value="'+data.proizvodjac+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Tezina: </h5></td><td><input  style="width=250px" class="tezina" type="text"  value="'+data.tezina+'"></td></tr>')
+      	  	.append('<tr><td><h5 style="width:100px">Zemlja proizvodnje: </h5></td><td><input  style="width=250px" class="zemljaproizvodnje" type="text"  value="'+data.zemljaproizvodnje+'"></td></tr>')
+        	.append('<tr><td><h5 style="width:100px">Kolicina u magacinu: </h5></td><td><input  style="width=250px" class="magacin" type="text"  value="'+data.magacin+'"></td></tr>')
+      	  	.append('<tr><td><a style="width:100px">Recenzije</a></td>/tr>')
+        	.append('<tr><td><h5 style="width:100px">Dostupno u prodavnicama: </h5></td></tr>');
+        	for(var z=0;z<data.prodavnica.length;z++){
+        		$itemKontejner.append('<tr><td><input  style="width=250px" class="prodavnica" type="text" readonly value="'+data.prodavnica[z]+'"></td></tr>');
+        		 for(var j=0;j<prodavniceMoje.length;j++){
+               	 		 if(data.prodavnica[z]===prodavniceMoje[j]){
+               	 $itemKontejner.append('<tr><td><button class="dugmeprodavnica" id="'+data.prodavnica[z]+'" onclick="deleteProdavnicuu(\'' + data.prodavnica[z] + '\',\'' + data.sifra + '\')" >Obrisi</button></td></tr>');
+               	 		 }
+        	}
+        	}
+        	$itemKontejner.append('<br><tr><td>Dodaj novu prodavnicu: <select class="prodavnnica"></select></td></tr>');
+        	$itemKontejner.append('</table>');
+        	
+      	  	$('#sredina').append($itemKontejner);
+            $('#sredina').append('<p style="width: 25%; margin: 0 auto;">&nbsp;</p>');
+             
+            for(var j=0;j<prodavniceMoje.length;j++){
+            	for(var z=0;z<data.prodavnica.length;z++){
+            
+          	  if(data.prodavnica[z]===prodavniceMoje[j]){
+					$('#sredina').append('<button style="background-color: #ffcc00; border-radius: 25px;" id="'+data.sifra+'dugme" onclick="return aa(\''+data.sifra+'\')" class="adminDugme">Izmeni</button>');
+					$('#sredina').append('<button style="background-color: #33cc33; border-radius: 25px;" onclick="return sacuvajIzmenu(\''+data.sifra+'\')" class="adminDugme" id="'+data.sifra+'">Sacuvaj izmene</button>')
+					$('#sredina').append('<button style="background-color: #33cc33; border-radius: 25px;" onclick="odustani()" class="adminDugme" id="rara"  >Odustani</button>');
+	          	return;
+          	  }
+            	}
+        }
+        }
+	});
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/kategorije/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	$('.kategorija').append('<option value="">Izaberi</option>');
+        	for(var i =0;i < data.length;i++)
+        	{
+        	  var item = data[i];
+        	  	$('.kategorija').append('<option value="'+item.naziv+'">'+item.naziv+'</option>');
+        	  	if(item.podkategorija.length!==null){
+        	  		for(var j =0;j<item.podkategorija.length;j++)
+        	  			$('.kategorija').append('<option value="'+item.podkategorija[j].naziv+'">'+item.podkategorija[j].naziv+'</option>');
+        	  	}
+        	}
+        }
+	});
+	
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/prodavnice/all',
+        dataType: 'json',
+        success: function(data){
+        	console.log(data);
+        	$('.prodavnnica').append('<option value="">Izaberi</option>');
+        	for(var i =0;i < data.length;i++)
+        	{
+        		var item = data[i];
+        		
+        		for(var j=0;j<prodavniceMoje.length;j++){
+        	  
+        	 	if(item.naziv === prodavniceMoje[j])
+        	  	$('.prodavnnica').append('<option value="'+item.naziv+'">'+item.naziv+'</option>');
+        		}
+        	}
+        }
+	});
+}
+
+function deleteProdavnicuu(prodavnica, sifra){
+	$.ajax({ 
+        type: 'GET',
+        url: 'rest/item/delete/'+prodavnica+'/'+sifra,
+        dataType: 'json',
+        success: function(data){
+        	location.reload();
+        }
+	});
+}
+
+function odustani(){
+	location.reload();
+}
+
+
+function sacuvajIzmenu(sifra){
+	var tabla = document.getElementsByTagName('input');
+	var idedalje = true;
+	var boja = tabla[2].value;
+	var dimenzije = tabla[3].value;
+	var tezina = tabla[4].value;
+	var cena =tabla[5].value;
+	
+	var kategorijaa = document.getElementsByClassName('kategorija');
+	var kategorija = kategorijaa[0].value;
+	
+	var ocena=tabla[6].value;
+	var proizv =tabla[7].value;
+	var zemlja =tabla[9].value;
+	var kolicina = tabla[10].value;
+	
+	var dodajprodavnicuu = document.getElementsByClassName('prodavnnica');
+	var dodajprodavnicu = dodajprodavnicuu[0].value;
+	
+	if(dodajprodavnicu.length===0)
+		dodajprodavnicu = "nema";
+	
+	alert(dodajprodavnicu)
+	
+	if(kategorija.length===0){
+    	$.notify("Niste uneli kategoriju!");
+    	idedalje = false;	
+    }
+	
+	if(idedalje){
+		$.ajax({ 
+	        type: 'GET',
+	        url: 'rest/item/izmeni/'+sifra+'/'+boja+'/'+dimenzije+'/'+tezina+'/'+cena+'/'+kategorija+'/'+ocena+'/'+proizv+'/'+zemlja+'/'+kolicina+'/'+dodajprodavnicu,
+	        dataType: 'json',
+	        complete: function(data){
+	        	alert("Uspesno ste izmenili proizvod");
+	        	location.reload();
+	        }
+		});
+		
+		
+	}
+	return idedalje;
+	
+}
+
+</script>
+<!--  CENTAR -->
+<div class=".col-xs-6 .col-sm-8 .col-lg-10 ">
+				<form class="navbar-form navbar-left">
+					<div class="form-group" id="sredina">
+											
+					</div>
+
+				</form>
+			</div>
+			
+			 
+			
+			
+				
+			<!-- desno pretraga -->
+			<div class=".col-xs-6 .col-sm-8 .col-lg-10 pull-right">
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Traži">
+						<button type="submit" class="btn btn-default">Pretrži</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ********************************* LEVO ********************************* -->
+	
+
+</body>
+</html>
